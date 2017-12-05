@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exp_date: 2017-12-05 13:21:58
+  brand_name: MyString
+  food_type: MyString
+  fridge: one
+
+two:
+  exp_date: 2017-12-05 13:21:58
+  brand_name: MyString
+  food_type: MyString
+  fridge: two
