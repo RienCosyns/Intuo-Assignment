@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205122158) do
+ActiveRecord::Schema.define(version: 20171208144440) do
 
   create_table "foods", force: :cascade do |t|
     t.datetime "exp_date"
@@ -35,11 +35,12 @@ ActiveRecord::Schema.define(version: 20171205122158) do
     t.string "name"
     t.integer "age"
     t.datetime "date_of_death"
-    t.string "fav_food"
-    t.string "animal_type"
+    t.text "fav_food"
+    t.string "type"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date_of_birth"
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20171205122158) do
     t.integer "amount_of_pets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date_of_birth"
   end
 
 end
