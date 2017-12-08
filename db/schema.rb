@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20171205122158) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "foods", force: :cascade do |t|
     t.datetime "exp_date"
     t.string "brand_name"
     t.string "food_type"
-    t.integer "fridge_id"
+    t.bigint "fridge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fridge_id"], name: "index_foods_on_fridge_id"
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 20171205122158) do
   create_table "fridges", force: :cascade do |t|
     t.string "brand"
     t.datetime "last_check_date"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_fridges_on_user_id"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 20171205122158) do
     t.datetime "date_of_death"
     t.string "fav_food"
     t.string "animal_type"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_pets_on_user_id"
@@ -54,4 +57,7 @@ ActiveRecord::Schema.define(version: 20171205122158) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "foods", "fridges"
+  add_foreign_key "fridges", "users"
+  add_foreign_key "pets", "users"
 end
