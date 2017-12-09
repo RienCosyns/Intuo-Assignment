@@ -4,8 +4,9 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+user:
+  f_name: "John",
+  l_name: "Doe",
+  date_of_birth: Faker::Date.birthday(1,100),
+  email: "John.Doe@example.com",
+  amount_of_pets: rand(0..3)

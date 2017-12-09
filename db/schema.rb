@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209094605) do
+ActiveRecord::Schema.define(version: 20171209134654) do
 
   create_table "foods", force: :cascade do |t|
     t.datetime "exp_date"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20171209094605) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
-    t.integer "age"
     t.datetime "date_of_death"
     t.text "fav_food"
     t.string "type"
@@ -48,7 +47,6 @@ ActiveRecord::Schema.define(version: 20171209094605) do
     t.string "f_name"
     t.string "l_name"
     t.string "email"
-    t.integer "age"
     t.boolean "has_fridge"
     t.integer "amount_of_pets"
     t.datetime "created_at", null: false

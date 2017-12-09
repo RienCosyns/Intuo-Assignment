@@ -1,17 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  age: 1
-  date_of_death: 2017-12-04 15:08:58
-  fav_food: MyString
-  animal_type: MyString
-  user: one
+cat:
+  name: "puss"
+  date_of_birth: Faker::Date.birthday((1/12), 15)
+  user: user
+  fav_food: "milk"
 
-two:
-  name: MyString
-  age: 1
-  date_of_death: 2017-12-04 15:08:58
-  fav_food: MyString
-  animal_type: MyString
-  user: two
+dog:
+  name: "snuffles"
+  date_of_birth: Faker::Date.birthday((1/12), 15)
+  user: user
+  fav_food: "meat"
+
+horse:
+  name: "Bojack"
+  date_of_birth: Faker::Date.birthday((1/12), 15)
+  user: user
+  fav_food: "carrot"
+
+mouse:
+  name: "Fievel"
+  date_of_birth: Faker::Date.birthday((1/12), 15)
+  user: user
+  fav_food: "cheese"

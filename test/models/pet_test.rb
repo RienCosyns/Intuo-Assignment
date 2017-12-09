@@ -1,20 +1,31 @@
 require 'test_helper'
 
 class PetTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-
   def setup
-    @pet = Pet.new(name: "Snuffles", age: 15, date_of_death: 1.day.from_now, animal_type: "Dog", fav_food: "meat")
+    @user = users(:user)
+    @cat = pets(:cat)
+    @dog = pets(:dog)
+    @horse = pets(:horse)
+    @mouse = pets(:mouse)
   end
 
-  test "not allowed food should be invalid" do
-    @pet.fav_food = "cola"
+  test "name can't be blank" do
+    @pet.name = " "
     assert_not @pet.valid?
   end
 
-  test "allowed food should be valid" do
-    assert @pet.valid?
+  test "date of birth can't be blank" do 
+    @pet.date_of_birth = "  "
+    assert_not @pet.valid?
+  end
+
+  test "date of birth can't be in the future" do 
+    @pet.date_of_birth = 2.years.from_now
+    assert_not @pet.valid?
+  end
+
+  test "date of birth is in the past" do 
+    @pet.date_of_birth = 2.years.ago
+    assert @pet.valid?, "#{@pet.age}, #{@pet.date_of_birth}, #{@pet.name}, #{@pet.valid?}, #{@pet.errors.full_messages}"
   end
 end

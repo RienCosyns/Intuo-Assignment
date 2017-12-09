@@ -1,6 +1,6 @@
 class Pet < ApplicationRecord
   belongs_to :user
-  before_save :age, :date_of_death
+  before_save :date_of_death
 
   validates :name, presence: true, length: {minimum: 3, maximum: 40}
   validates :date_of_birth, presence: true
@@ -16,14 +16,16 @@ class Pet < ApplicationRecord
 
   private 
     def date_of_death
-      nil unless (age > 15)
+      self.date_of_death = nil unless (age > 15)
     end
 
     def allowable_food
-      food = %w(water grass milk meat carrot bread)
-      if !food.include? fav_food.downcase
-        errors.add(:fav_food, "is not allowed")
-      end 
+      if !fav_food.nil?
+        food = %w(water grass milk meat carrot bread)
+        if !food.include? fav_food.downcase
+          errors.add(:fav_food, "is not allowed")
+        end
+      end
     end
 
     def can_eat_food
@@ -31,12 +33,4 @@ class Pet < ApplicationRecord
         errors.add(:fav_food, 'is not allowed for this animal')
       end
     end
-
-    def realistic_birthdate
-
-      if date_of_birth.present? && date_of_birth > Date.today
-        errors.add(:date_of_birth, "can't be in the future")
-      end
-    end
-
 end
