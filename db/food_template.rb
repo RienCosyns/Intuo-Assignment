@@ -7,20 +7,16 @@ class FoodTemplate
     @size = nil
     @color = nil
   end
-
-  def full_text
-    "#{@volume || @size || @color || ''} #{self.class}"
-  end
 end
 
-class Milk < FoodTemplate
+class MilkTemplate < FoodTemplate
   def initialize
     super
     @volume = ["0.5l", "1l"].sample
   end
 end
 
-class Water < FoodTemplate
+class WaterTemplate < FoodTemplate
   def initialize
     super 
     @exp_date = nil
@@ -28,24 +24,24 @@ class Water < FoodTemplate
   end
 end
 
-class Bread < FoodTemplate
+class BreadTemplate < FoodTemplate
   def initialize
     super
     @size = ["big", "small"].sample
   end
 end
 
-class Meat < FoodTemplate
+class MeatTemplate < FoodTemplate
 end
 
-class Carrot < FoodTemplate
+class CarrotTemplate < FoodTemplate
   def initialize
     super
     @color = ["orange", "purple", "white"].sample
   end
 end
 
-class Grass < FoodTemplate
+class GrassTemplate < FoodTemplate
   def initialize
     super
     @exp_date = nil
@@ -53,9 +49,8 @@ class Grass < FoodTemplate
   end
 end
 
-food_type = ["Milk", "Water", "Grass", "Meat", "Bread", "Carrot"].sample
-food = food_type.constantize.new
+# food_type = ["Milk", "Water", "Grass", "Meat", "Bread", "Carrot"].sample
+# food = food_type.constantize.new
 
-puts food.exp_date
-puts food.brand_name
-puts food.full_text
+# puts food.exp_date
+# puts food.brand_name

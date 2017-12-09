@@ -12,11 +12,11 @@ class User < ApplicationRecord
           format: {with: VALID_EMAIL_REGEX}, 
           uniqueness: {case_sensitive: false}
 
-  # validates :amount_of_pets, numericality: {
-  #   only_integer: true,
-  #   greater_than_or_equal_to: 0,
-  #   less_than: 4
-  # }
+  validates :amount_of_pets, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 0,
+    less_than: 4
+  }, allow_nil: true
 
   private 
     def downcase_email 

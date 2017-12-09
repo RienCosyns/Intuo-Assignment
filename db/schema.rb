@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208144440) do
+ActiveRecord::Schema.define(version: 20171209094605) do
 
   create_table "foods", force: :cascade do |t|
     t.datetime "exp_date"
     t.string "brand_name"
-    t.string "food_type"
+    t.string "type"
     t.integer "fridge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20171208144440) do
   end
 
   create_table "fridges", force: :cascade do |t|
-    t.string "brand"
+    t.string "type"
     t.datetime "last_check_date"
     t.integer "user_id"
     t.datetime "created_at", null: false

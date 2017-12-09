@@ -11,6 +11,21 @@ require_relative "user_template"
 # require_relative "fridge_template"
 # require_relative "food_template"
 
+def Food.define_food(food)
+  
+    if food == 'Water' || food == 'Grass'
+      food.exp_date = nil
+      food.brand_name = nil
+    elsif food == 'Bread'
+      food.size = ["big", "small"].sample
+    elsif food == 'Milk'
+      food.volume = ['0.5l', '1l'].sample
+    elsif food == 'Carrot'
+      food.color == ["orange", "purple", "white"].sample
+    end
+    food.save
+end
+
 # create 500 users 
 500.times do 
   user = UserTemplate.new
@@ -37,6 +52,26 @@ User.all.each do |user|
     new_pet.fav_food = new_pet.restricted_food.sample
     new_pet.save
     
+  end
+  if user.has_fridge
+    fridge = Fridge.types.sample
+
+    new_fridge = fridge.constantize.create!(
+      last_check_date: Faker::Date.between(5.years.ago, Date.today),
+      user_id: user.id
+    )
+
+    rand(1..10).times do
+      food = Food.types.sample
+
+      new_food = food.constantize.new(
+        exp_date: Faker::Date.between(Date.today, 3.days.from_now),
+        brand_name: ["Cheap", "Expensive"].sample,
+        fridge_id: new_fridge.id
+      )
+
+      Food.define_food(new_food)
+    end
   end
   user.save
 end

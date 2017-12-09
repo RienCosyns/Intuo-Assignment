@@ -4,7 +4,7 @@ class Pet < ApplicationRecord
 
   validates :name, presence: true, length: {minimum: 3, maximum: 40}
   validates :date_of_birth, presence: true
-  validates :fav_food, presence: true
+  validates :fav_food, presence: true, allow_nil: true
   validate :realistic_birthdate
   validate :allowable_food
   validate :can_eat_food
