@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171209134654) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "foods", force: :cascade do |t|
     t.datetime "exp_date"
     t.string "brand_name"
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 20171209134654) do
   create_table "fridges", force: :cascade do |t|
     t.string "type"
     t.datetime "last_check_date"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_fridges_on_user_id"
@@ -54,4 +57,7 @@ ActiveRecord::Schema.define(version: 20171209134654) do
     t.datetime "date_of_birth"
   end
 
+  add_foreign_key "foods", "fridges"
+  add_foreign_key "fridges", "users"
+  add_foreign_key "pets", "users"
 end
