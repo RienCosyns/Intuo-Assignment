@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20171209134654) do
     t.datetime "exp_date"
     t.string "brand_name"
     t.string "type"
-    t.integer "fridge_id"
+    t.bigint "fridge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fridge_id"], name: "index_foods_on_fridge_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20171209134654) do
     t.datetime "date_of_death"
     t.text "fav_food"
     t.string "type"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "date_of_birth"
