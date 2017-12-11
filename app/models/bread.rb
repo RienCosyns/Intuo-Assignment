@@ -1,6 +1,4 @@
 class Bread < Food
-  attr_accessor :size
-
+  before_save :set_to_nil
   validates :size, inclusion: { in: %w(small big) }
-
 end

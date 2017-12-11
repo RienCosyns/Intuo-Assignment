@@ -1,5 +1,5 @@
 class Milk < Food
-  attr_accessor :volume
+  before_save :set_to_nil
 
   validates :volume, inclusion: { in: %w(0.5l 1l) }
   

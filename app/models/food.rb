@@ -20,4 +20,13 @@ class Food < ApplicationRecord
         end
       end
     end
+
+    private
+    def set_to_nil 
+      self.exp_date = nil if self.type == "Water" || type == "Grass"
+      self.brand_name = nil if self.type == "Water" || type == "Grass"
+      self.size = nil unless self.type == "Bread"
+      self.volume = nil unless self.type == "Milk"
+      self.color = nil unless self.type == "Carrot"
+    end
 end
