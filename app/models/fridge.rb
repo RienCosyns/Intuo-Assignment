@@ -1,6 +1,6 @@
 class Fridge < ApplicationRecord
   belongs_to :user
-  has_many :foods
+  has_many :foods, dependent: :destroy
 
   validates :last_check_date, presence: true
   validate :past_check_date

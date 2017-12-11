@@ -1,13 +1,36 @@
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
+
 require_relative "user_template"
 # require_relative "pet_template"
 # require_relative "fridge_template"
 # require_relative "food_template"
 
+def Food.define_food(food)
+    puts "in method: #{food.class}, #{food.type}"
+    if food.type == 'Water' || food.type == 'Grass'
+      food.exp_date = nil
+      food.brand_name = nil
+    elsif food.type == 'Bread'
+      food.size = ["big", "small"].sample
+    elsif food.type == 'Milk'
+      food.volume = ['0.5l', '1l'].sample
+    elsif food.type == 'Carrot'
+      food.color == ["orange", "purple", "white"].sample
+    end
+    food.save
+end
+
 # create 500 users 
 500.times do 
   user = UserTemplate.new
 
-  new_user = User.create!(
+  User.create!(
     f_name: user.f_name,
     l_name: user.l_name,
     email: user.email,
@@ -18,61 +41,39 @@ end
 
 User.all.each do |user|
   rand(0..3).times do 
-    pet_type = Pet.types.sample
+    pet = Pet.types.sample
      
-    user.pets << pet.new!(
+    new_pet = pet.constantize.new(
       name: Faker::Name.first_name,
       date_of_birth: Faker::Date.birthday((1/12), 15),
-      fav_food: fav_food(pet)
+      user_id: user.id
     )
-    user.save
+
+    new_pet.fav_food = new_pet.restricted_food.sample
+    new_pet.save
+    
   end
-end
-   # create n amout of pets for every user
+  if user.has_fridge
+    fridge = Fridge.types.sample
 
-  # new_user.amount_of_pets.times do
-  #   pet_type = Pet.types.sample
-  #   pet = pet_type.constantize.new
+    new_fridge = fridge.constantize.create!(
+      last_check_date: Faker::Date.between(5.years.ago, Date.today),
+      user_id: user.id
+    )
 
-  #   Pet.create!(
-  #     name: Faker::Name.first_name,
-  #     date_of_birth: Faker::Date.birthday((1/12), 15),
-  #     # date_of_death: pet.date_of_death,
-  #     # age: pet.age,
-  #     # type: pet.class,
-  #     fav_food: fav_food(pet),
-  #     user_id: new_user.id
-  #   )
-  # end
+    rand(1..10).times do
+      food = Food.types.sample
 
-  # if fridge, create fridge + food
-  # if new_user.has_fridge
-  #   fridge = FridgeTemplate.new
+      puts "food: #{food}"
 
-  #   new_fridge = Fridge.create!(
-  #     brand: fridge.brand,
-  #     last_check_date: fridge.last_check_date,
-  #     user_id: new_user.id
-  #   )
+      new_food = food.constantize.new(
+        exp_date: Faker::Date.between(Date.today, 3.days.from_now),
+        brand_name: ["Cheap", "Expensive"].sample,
+        fridge_id: new_fridge.id
+      )
 
-  #   rand(1..10).times do 
-  #     food_type = ["Milk", "Water", "Grass", "Meat", "Bread", "Carrot"].sample
-  #     food = food_type.constantize.new
-
-  #     Food.create!(
-  #       exp_date: food.exp_date,
-  #       brand_name: food.brand_name,
-  #       food_type: food.full_text,
-  #       fridge_id: new_fridge.id
-  #     )
-  #   end
-  # end
-# end
-
-def fav_food(pet)
-  fav_food = []
-    rand(1..pet.restricted_food.length).times do 
-      fav_food << pet.restricted_food.sample
+      Food.define_food(new_food)
     end
-    fav_food.uniq
+  end
+  user.save
 end

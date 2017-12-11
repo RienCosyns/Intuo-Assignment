@@ -12,16 +12,15 @@ require_relative "user_template"
 # require_relative "food_template"
 
 def Food.define_food(food)
-  
-    if food == 'Water' || food == 'Grass'
+    if food.type == 'Water' || food.type == 'Grass'
       food.exp_date = nil
       food.brand_name = nil
-    elsif food == 'Bread'
+    elsif food.type == 'Bread'
       food.size = ["big", "small"].sample
-    elsif food == 'Milk'
+    elsif food.type == 'Milk'
       food.volume = ['0.5l', '1l'].sample
-    elsif food == 'Carrot'
-      food.color == ["orange", "purple", "white"].sample
+    elsif food.type == 'Carrot'
+      food.color = ["orange", "purple", "white"].sample
     end
     food.save
 end

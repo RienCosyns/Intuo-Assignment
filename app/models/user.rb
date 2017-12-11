@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :pets, dependent: :destroy
-  has_one :fridge
-  before_save :downcase_email, :has_fridge?, :count_living_animals
+  has_one :fridge, dependent: :destroy
+  before_save :downcase_email, :has_fridge?, :count_living_animals, :set_age
 
   validates :f_name, :l_name, :date_of_birth, :email, presence: true
   validates :f_name, :l_name, length: {minimum: 2, maximum: 50}
@@ -19,6 +19,10 @@ class User < ApplicationRecord
   }, allow_nil: true
 
   validate :realistic_birthdate
+
+  scope :fridge_type, -> (type) {joins(:fridge).where ("fridges.type = ?"), type}
+  scope :fridge_last_checkup_before, -> (date) {joins(:fridge).where ("fridges.last_check_date < ?"), date}
+  scope :fridge_last_checkup_after, -> (date) {joins(:fridge).where ("fridges.last_check_date > ?"), date}
 
   private 
     def downcase_email 

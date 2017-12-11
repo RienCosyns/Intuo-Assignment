@@ -1,6 +1,6 @@
 class Pet < ApplicationRecord
   belongs_to :user
-  before_save :date_of_death
+  before_save :date_of_death, :set_age
 
   validates :name, presence: true, length: {minimum: 3, maximum: 40}
   validates :date_of_birth, presence: true
@@ -8,6 +8,12 @@ class Pet < ApplicationRecord
   validate :realistic_birthdate
   validate :allowable_food
   validate :can_eat_food
+
+  scope :type, -> (type) {where type: type}
+  scope :fav_food, -> (fav_food) {where fav_food: fav_food}
+  scope :older_than, -> (age) {where ("age >= ?"), age}
+  scope :younger_than, -> (age) {where ("age < ?"), age}
+  scope :user, -> (id) {where ("user_id = ?"), id}
 
   def self.types
     %w(Cat Dog Horse Mouse)
