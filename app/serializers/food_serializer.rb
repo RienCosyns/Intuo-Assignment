@@ -1,6 +1,6 @@
 class FoodSerializer < ActiveModel::Serializer
-  
-  attributes :id, :type, :exp_date, :brand_name
+  belongs_to :fridge
+  attributes :type, :exp_date, :brand_name
 end
 
 class BreadSerializer < FoodSerializer

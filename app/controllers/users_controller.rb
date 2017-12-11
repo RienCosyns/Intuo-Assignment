@@ -25,7 +25,12 @@ class UsersController < ApplicationController
 
   private 
     def filtering_params(params)
-      params.slice(:fridge_type, :fridge_last_checkup_before, :fridge_last_checkup_after, :pets, :age)
+      params.slice(:fridge_type, 
+      :fridge_last_checkup_before, 
+      :fridge_last_checkup_after, 
+      :pet_type,
+      :food_type
+      )
     end
 
 end

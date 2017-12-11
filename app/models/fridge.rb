@@ -9,6 +9,8 @@ class Fridge < ApplicationRecord
     %w(Siemens AEG Whirlpool)
   end
 
+  scope :food_type, -> (type) {joins(:foods).where ("foods.type = ?"), type}
+
   private
     def past_check_date
       if last_check_date > Date.today
