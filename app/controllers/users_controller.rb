@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @users = User.all
     filtering_params(params).each do |key, value|
       @users = @users.public_send(key, value) if value.present?
-    end
+      end
     render json: @users
   end
 
@@ -23,13 +23,20 @@ class UsersController < ApplicationController
     render json: @user_fridge
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    redirect_to users_path
+  end
+
   private 
     def filtering_params(params)
       params.slice(:fridge_type, 
       :fridge_last_checkup_before, 
       :fridge_last_checkup_after, 
       :pet_type,
-      :food_type
+      :food_type,
+      :carrot_color,
+      :brand_name
       )
     end
 

@@ -13,7 +13,7 @@ class Food < ApplicationRecord
   private
     def expired_food
       if !exp_date.nil?
-        if exp_date > (Date.today + 3)
+        if exp_date > 3.days.from_now
           errors.add(:exp_date, 'too far in the future')
         elsif exp_date < Date.today
           errors.add(:exp_date, "can't be in the past")

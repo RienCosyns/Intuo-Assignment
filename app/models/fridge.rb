@@ -2,7 +2,8 @@ class Fridge < ApplicationRecord
   belongs_to :user
   has_many :foods, dependent: :destroy
 
-  validates :last_check_date, presence: true
+  validates :last_check_date, :type, presence: true
+  validates :type, inclusion: {in: %w(Siemens AEG Whirlpool)}
   validate :past_check_date
 
   def self.types

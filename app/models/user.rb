@@ -25,7 +25,9 @@ class User < ApplicationRecord
   scope :fridge_last_checkup_after, -> (date) {joins(:fridge).where ("fridges.last_check_date > ?"), date}
   scope :pet_type, -> (animal) {joins(:pets).where ("pets.type = ?"), animal}
   scope :food_type, -> (food) {joins(fridge: :foods).where ("foods.type = ?"), food}
-  scope :carrot_color, -> (color) {food_type("Carrot") if }
+  scope :carrot_color, -> (color) {food_type("Carrot").where ("foods.color = ? "), color }
+  scope :brand_name, -> (brand) {joins(fridge: :foods).where ("foods.brand_name = ?"), brand}
+  scope :amount, -> (amount) {group}
   
   private 
     def downcase_email 

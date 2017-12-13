@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   resources :users
   get "/users/:id/fridge", to: "users#fridge"
   get "/users/:id/pets", to: "users#pets"
+  post "/users/:id/fridge", to: "fridges#create"
+  post "/users/:id/fridge/foods", to: "foods#create"
+  delete "/pets/:id/eat", to: "foods#destroy"
   resources :pets
-  resources :fridges
-  resources :foods
+  resources :foods, only: [:index, :show]
+  resources :fridges, only: [:index, :show]
 
 end

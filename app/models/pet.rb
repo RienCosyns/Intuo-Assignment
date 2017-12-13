@@ -1,6 +1,6 @@
 class Pet < ApplicationRecord
   belongs_to :user
-  before_save :date_of_death, :set_age
+  before_save :is_alive?, :set_age
 
   validates :name, presence: true, length: {minimum: 3, maximum: 40}
   validates :date_of_birth, presence: true
@@ -21,8 +21,10 @@ class Pet < ApplicationRecord
 
 
   private 
-    def date_of_death
-      self.date_of_death = nil unless (age > 15)
+    def is_alive?
+      if date_of_death.nil? && (age > 15)
+        self.date_of_death = Date.today
+      end
     end
 
     def allowable_food

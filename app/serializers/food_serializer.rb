@@ -1,6 +1,7 @@
 class FoodSerializer < ActiveModel::Serializer
+  include NullAttributesRemover
   belongs_to :fridge
-  attributes :type, :exp_date, :brand_name
+  attributes :type, :exp_date, :brand_name, :size, :volume, :color
 end
 
 class BreadSerializer < FoodSerializer

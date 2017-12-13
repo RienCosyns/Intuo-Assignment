@@ -15,6 +15,18 @@ class PetsController < ApplicationController
     render json: @pet
   end
 
+  def update
+    @pet = Pet.find(params[:id])
+    if params[:death]
+      @pet.update_attribute(:date_of_death, Date.today)
+    end
+    if @pet.save
+      render json: @pet
+    else
+      render json: @pet.errors.full_messages
+    end
+  end
+
   private
 
     def filtering_params(params)
